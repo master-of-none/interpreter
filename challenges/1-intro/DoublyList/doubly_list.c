@@ -57,12 +57,47 @@ void insertEnd(Node **head, char c) {
 
 }
 
+void deleteFront(Node **head){
+	if(*head == NULL){
+		printf("Empty List\n");
+		return;
+	}
+	Node *temp = *head;
+	*head = temp->next;
+	
+	if(*head != NULL){
+		(*head)->prev = NULL;
+	}
+	free(temp);
+}
+
+void deleteEnd(Node **head){
+	if (*head == NULL){
+		printf("Empty List\n");
+		return;
+	}
+
+	Node *temp = *head;
+	while (temp->next != NULL){
+		temp = temp->next;
+	}
+	if(temp->prev == NULL){
+		*head = NULL;
+	}
+	else{
+		temp->prev->next = NULL;
+	}
+	free(temp);
+}
+
 int main() {
 	Node *head = NULL;
 	insertFront(&head, 'a');
 	insertFront(&head, 'b');
 	insertFront(&head, 'c');
 	insertEnd(&head, 'd');
+	deleteFront(&head);
+	deleteEnd(&head);
 	displayList(head);
 	return 0;
 }
